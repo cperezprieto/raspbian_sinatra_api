@@ -32,7 +32,7 @@ namespace '/api/v1' do
   put '/leds/:id/:status' do |id, status|
     puts id + ' ' + status
     halt(404, { message: 'Led Not Found' }.to_json) unless (0..1).include? id.to_i
-    `echo "#{status}" > /sys/class/leds/led"#{id}"/brightness`
+    `sudo sh -c 'echo #{status} > /sys/class/leds/led#{id}/brightness'`
   end
 end
 
