@@ -3,6 +3,9 @@
 require 'sinatra'
 require 'sinatra/namespace'
 
+# Listen on all interfaces in the development environment
+set :bind, '0.0.0.0'
+
 # Endpoints
 get '/' do
   'Welcome to Raspian Server'
