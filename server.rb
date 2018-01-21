@@ -2,6 +2,7 @@
 
 require 'sinatra'
 require 'sinatra/namespace'
+require 'pry'
 
 # Listen on all interfaces in the development environment
 set :bind, '0.0.0.0'
@@ -22,10 +23,10 @@ namespace '/api/v1' do
     leds = []
 
     green = `cat /sys/class/leds/led1/brightness`.delete!("\n")
-    leds << Led.new('0', green)
+    leds << Led.new('Green', green)
 
     red = `cat /sys/class/leds/led1/brightness`.delete!("\n")
-    leds << Led.new('0', red)
+    leds << Led.new('Red', red)
     leds.to_json
   end
 
