@@ -23,10 +23,10 @@ namespace '/api/v1' do
     leds = []
 
     green = `cat /sys/class/leds/led0/brightness`.delete!("\n")
-    leds << Led.new('Green', green)
+    leds << Led.new('green', green)
 
     red = `cat /sys/class/leds/led1/brightness`.delete!("\n")
-    leds << Led.new('Red', red)
+    leds << Led.new('red', red)
     leds.to_json
   end
 
@@ -42,6 +42,7 @@ namespace '/api/v1' do
     end
 
     status = `sudo sh -c "cat /sys/class/leds/led#{id}/brightness"`.delete!("\n")
+    Led.new(led, status).to_json
   end
 
   put '/leds/:led/:status' do |led, status|
