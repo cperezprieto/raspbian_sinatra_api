@@ -22,7 +22,7 @@ namespace '/api/v1' do
     # red = /sys/class/leds/led1/brightness
     leds = []
 
-    green = `cat /sys/class/leds/led1/brightness`.delete!("\n")
+    green = `cat /sys/class/leds/led0/brightness`.delete!("\n")
     leds << Led.new('Green', green)
 
     red = `cat /sys/class/leds/led1/brightness`.delete!("\n")
@@ -30,10 +30,31 @@ namespace '/api/v1' do
     leds.to_json
   end
 
-  put '/leds/:id/:status' do |id, status|
-    puts id + ' ' + status
-    halt(404, { message: 'Led Not Found' }.to_json) unless (0..1).include? id.to_i
-    `sudo sh -c 'echo #{status} > /sys/class/leds/led#{id}/brightness'`
+  get '/leds/:led' do |led|
+    case led.downcase
+    when 'green'
+      id = 0
+    when 'red'
+      id = 1
+    else
+      puts id + ' ' + status
+      halt(404, { message: 'Led Not Found' }.to_json) unless (0..1).include? id.to_i
+    end
+
+    status = `sudo sh -c "cat /sys/class/leds/led#{id}/brightness"`.delete!("\n")
+  end
+
+  put '/leds/:led/:status' do |led, status|
+    case led.downcase
+    when 'green'
+      id = 0
+    when 'red'
+      id = 1
+    else
+      puts id + ' ' + status
+      halt(404, { message: 'Led Not Found' }.to_json) unless (0..1).include? id.to_i
+    end
+    `sudo sh -c "echo #{status} > /sys/class/leds/led#{id}/brightness"`
   end
 end
 
