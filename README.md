@@ -22,13 +22,16 @@ WantedBy=multi-user.target
 ```
 sudo systemctl daemon-reload
 ```
-
-### 4. Start service
+### 4. Enable service
+```
+sudo systemctl enable sinatra-api.service
+```
+### 5. Start service
 ```
 sudo systemctl start sinatra-api.service
 ```
 
-### 5. To know status of the service run
+### 6. To know status of the service run
 ```
 systemctl status sinatra-api.service
 ```
