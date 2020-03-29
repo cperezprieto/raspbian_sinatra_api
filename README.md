@@ -2,7 +2,7 @@
 ## Install as a systemctl service
 ### 1. Create a service file
   ```
-  sudo nano /lib/systemd/system/raspbian_sinatra_api.service
+  sudo nano /lib/systemd/system/sinatra-api.service
   ```
 
 ### 2. Paste this lines inside the file and save
